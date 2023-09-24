@@ -1,0 +1,18 @@
+{% extends 'newsletter/base.html' %}
+
+{% block content %}
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <p class="">Хотите удалить рассылку "{{ mailing.message.topic }}"?</p>
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                        <a href="{% url 'newsletter:index' %}" class="btn btn-warning">Отмена</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

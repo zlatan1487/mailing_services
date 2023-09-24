@@ -1,0 +1,64 @@
+{% extends 'newsletter/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{% url 'newsletter:index' %}" class="btn btn-primary mr-2">На главную</a>
+            <table class="table table-bordered mt-5">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Дата и время попытки</th>
+                        <th>Статус попытки</th>
+                        <th>Частота</th>
+                        <th>Ответ почтового сервера</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in mailing_logs %}
+                        <tr>
+                            <td>
+                                {% for client in log.mailing.clients.all %}
+                                    {{ client.email }}
+                                    {% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{ log.timestamp }}</td>
+                            <td>
+                                {% if log.status == 'success' %}
+                                    <span class="text-success">Успешно</span>
+                                {% elif log.status == 'failure' %}
+                                    <span class="text-danger">Ошибка</span>
+                                {% else %}
+                                    <span class="text-muted">Неизвестный статус</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if log.mailing.frequency == 'daily' %}
+                                    Раз в день
+                                {% elif log.mailing.frequency == 'weekly' %}
+                                    Раз в неделю
+                                {% elif log.mailing.frequency == 'monthly' %}
+                                    Раз в месяц
+                                {% else %}
+                                    Неизвестная периодичность
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if "user not found" in log.server_response %}
+                                    Адрес электронной почты не существует
+                                {% else %}
+                                    {{ log.server_response }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5">Нет доступных логов.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

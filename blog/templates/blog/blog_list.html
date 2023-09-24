@@ -1,0 +1,40 @@
+{% extends 'newsletter/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+         {% if object_list %}
+            <div class="col-12">
+                <a class="btn btn-outline-primary mt-3" href="{% url 'blog:create' %}">Добавить блог</a>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <a class="btn btn-outline-primary mt-3" href="{% url 'blog:create' %}">Создать блог</a>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row mt-3">
+        {% for object in object_list %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img class="card-img-top" src="{% if object.preview_image %}{{ object.preview_image.url }}{% endif %}" alt="{% if object.preview_image %}{{ object.title }}{% endif %}">
+                <div class="card-body">
+                    <h4 class="card-title">{{ object.title|truncatechars:20 }}</h4>
+                    <p class="card-text">{{ object.content|truncatechars:100 }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{% url 'blog:view' object.pk %}" class="btn btn-sm btn-outline-secondary">Посмотреть</a>
+                            <a href="{% url 'blog:edit' object.pk %}" class="btn btn-sm btn-outline-secondary">Редактировать</a>
+                            <a href="{% url 'blog:delete' object.pk %}" class="btn btn-sm btn-outline-danger">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    Просмотров: {{ object.views_count }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+
+<div class="d-flex  justify-content-between" style="">
+    <div class="">
+        <a href="{% url 'newsletter:mailing_create' %}" class="btn btn-primary"><small>Создать рассылку</small></a>
+        <a href="{% url 'newsletter:create_customer' %}" class="btn btn-success my-2"><small>Добавить клиента</small></a>
+        <a href="{% url 'newsletter:mailing_log_list' %}" class="btn btn-warning my-2"><small>Логи рассылки</small></a>
+    </div>
+    <div>
+        {% if user.is_staff %}
+        <a href="{% url 'users:user_list' %}" class="btn btn-light my-2" style="border: 2px solid #000;"><small>Список пользователей сервиса</small></a>
+        <a href="{% url 'newsletter:customer_list' %}" class="btn btn-info my-2"><small>Список всех клиентов</small></a>
+        {% endif %}
+    </div>
+</div>
+<hr>

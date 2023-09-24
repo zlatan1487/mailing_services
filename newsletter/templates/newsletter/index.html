@@ -1,0 +1,57 @@
+{% extends 'newsletter/base.html' %}
+{% load static %}
+{% block content %}
+
+{% include 'newsletter/panel/info_panel.html' %}
+{% if user.is_authenticated %}
+{% include 'newsletter/panel/option_panel.html' %}
+
+<div class="row">
+<!--<p>Привет, {{ user.id }} {{ mailing.creator.id }}!</p>-->
+    {% for mailing in newsletter_list %}
+        <div class="col-md-6">
+            <div class="card box-shadow mt-5">
+                {% if user.is_superuser and user.id == mailing.creator.id %}
+                     <div class="card-header" style="border: 1px solid #28a745">
+                         <p><small class="text-success">Тема рассылки:</small> {{ mailing.message.topic | capfirst }} | <small class="text-danger">Вы являетесь собственником этой рассылки.</small></p>
+                     </div>
+                    {% else %}
+                        <div class="card-header">
+                         <p><small class="text-success">Тема рассылки:</small> {{ mailing.message.topic | capfirst }}</p>
+                     </div>
+                {% endif %}
+
+                <div class="card-body">
+                    <p><small class="text-success">Тема рассылки:</small> {{ mailing.message.message | capfirst | truncatechars:100 }}</p>
+                    <hr>
+                    <p><small class="text-success">Количество клиентов:</small> {{ mailing.clients.count }}</p>
+                    <p>
+                        <small class="text-success status">Статус рассылки:</small>
+                        {% if mailing.status == 'created' %}
+                            Создана
+                        {% elif mailing.status == 'started' %}
+                            Запущена
+                        {% elif mailing.status == 'completed' %}
+                            Завершена
+                        {% else %}
+                            Неизвестный статус
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between align-items-center" style="width:300px">
+                        <a href="{% url 'newsletter:mailing_detail' pk=mailing.pk %}" class="btn btn-primary mr-2">Смотреть</a>
+                        {% if not user.is_staff %}
+                            <a href="{% url 'newsletter:mailing_update' pk=mailing.pk %}" class="btn btn-success mr-2">Изменить</a>
+                        {% endif %}
+                        <a href="{% url 'newsletter:mailing_delete' pk=mailing.pk %}" class="btn btn-danger mr-2">Удалить</a>
+                        <a href="{% url 'newsletter:send_mailing' mailing_id=mailing.pk %}" class="btn btn-warning">Отправить сейчас</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+<script src="{% static 'js/info_panel.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,36 @@
+
+<div id="infoPanel" class="position-absolute col-md-3" style="right: -370px; top: 5px; transition: right 0.5s; z-index: 1;">
+    <ul id="infoList" class="list-group">
+        <li class="list-group-item bg-dark text-white d-flex align-items-center">
+            {% if user.avatar %}
+                <img src="{{ user.avatar.url }}" width="30" height="30" style="border-radius: 50%; object-fit: cover;">
+            {% endif %}
+            <div class="ml-2">
+                <small>Информация о рассылках -</small>
+                <small>{{ user.email }}</small>
+                {% if user.first_name %}
+                    <a href="{% url 'users:profile' %}" style="color: white; text-decoration: none;"><small>{{ user.first_name|capfirst }}</small></a>
+                {% endif %}
+            </div>
+        </li>
+        <li class="list-group-item"><small>Общее количество рассылок: {{ newsletter_list|length }}</small></li>
+        <li class="list-group-item"><small>Количество уникальных клиентов: {{ total_unique_customers }}</small></li>
+        <li class="list-group-item"><small>Количество активных рассылок: {{ active_mailings_count }}</small></li>
+        <li class="list-group-item bg-dark text-white"><small>Мои блоги:</small></li>
+
+       {% for blog in random_blogs %}
+            <li class="list-group-item">
+                <a href="{% url 'blog:view' blog.pk %}" style="text-decoration: none;" class="blog-link">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ blog.preview_image.url }}" alt="{{ blog.title }}" width="30" height="30">
+                        <span class="ml-2" style="color: black;"><small>{{ blog.title }}</small></span>
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+        {% if user.is_superuser %}
+            <li class="list-group-item bg-danger text-warning">Права администратара</li>
+        {% endif %}
+    </ul>
+    <button id="toggleBtn" class="btn btn-sm" style="position: absolute; top: 5px; left: -20px;">&#9432;</button>
+</div>

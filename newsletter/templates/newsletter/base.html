@@ -1,0 +1,77 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ title }}</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/album.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+</head>
+  <body>
+    <header>
+      <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7">
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4 class="text-white">Contact</h4>
+              <ul class="list-unstyled">
+                {% if user.is_authenticated %}
+                  <li><a href="{% url 'users:profile' %}">Профиль</a></li>
+                  <li><a href="{% url 'blog:list' %}">Блог</a></li>
+                  <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+                {% else %}
+                   <li><a href="{% url 'users:login' %}">Войти</a></li>
+                   <li><a href="{% url 'users:register' %}">Регистрация</a></li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="{% url 'newsletter:index' %}" class="navbar-brand d-flex align-items-center">
+            <strong>Главная</strong>
+          </a>
+          <div class="d-flex">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            </div>
+        </div>
+
+      </div>
+    </div>
+ </header>
+<main role="main" style="position: relative; overflow: hidden;">
+      <section class="text-center py-5">
+        <div class="container">
+          <h1 class="jumbotron-heading">{{ title|capfirst }}</h1>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+      </div>
+    </main>
+<footer class="text-muted">
+    <div class="container">
+
+    </div>
+</footer>
+
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="{% static 'js/popper.min.js'%}"></script>
+<script src="{% static 'js/bootstrap.min.js'%}"></script>
+<script src="{% static 'js/holder.min.js'%}"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+.jumbotron-heading{
+    font-weight: bold;
+}
+
+.form{
+   border: 8px solid transparent;
+   border-image: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%) 20% / 1 / 0 stretch;
+   padding: 15px;
+}
+
+.rounded-circle {
+    background-color: #aaa;
+}
+
+
+/* Стилизация формы */
+form {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+/* Стилизация кнопки "Создать" */
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Стилизация полей формы */
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Стилизация сообщения об ошибке */
+.error-message {
+  color: #cc0000;
+  font-size: 14px;
+}
+
+
+/* Стилизация кнопки загрузки */
+input[type="file"] {
+  display: none; /* Скрываем оригинальную кнопку загрузки */
+}
+
+.custom-upload-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Стилизация элемента отображения выбранного файла */
+.custom-file-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Отображение имени выбранного файла */
+.custom-file-label::after {
+  content: "Выберите файл";
+}
+
+/* Обновление отображения имени файла при выборе файла */
+input[type="file"]:valid + .custom-file-label::after {
+  content: attr(data-file-name);
+}
+
+.status{
+    color: red
+}
+
+
+

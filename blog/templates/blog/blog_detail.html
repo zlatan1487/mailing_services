@@ -1,0 +1,25 @@
+{% extends 'newsletter/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="card-img-top" style="width: auto; max-width: 100%; max-height: 100%; object-fit: contain;" src="{% if object.preview_image %}{{ object.preview_image.url }}{% endif %}" alt="{% if object.preview_image %}{{ object.title }}{% endif %}">
+        </div>
+        <div class="col-md-6">
+            <p class="mt-3"><strong>Тема блога:</strong> {{ object.title }}</p>
+            <p><strong>О блоге:</strong> {{ object.content }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card-footer mt-3">
+                <span class="text-muted">
+                    <small style="background-color: green; color: white; padding: 3px 5px; border-radius: 3px;">Просмотров: {{ object.views_count }}</small>
+                </span>
+                <p><strong>Дата создания:</strong> {{ object.created_at|date:"F d, Y H:i" }}</p>  <!-- Форматируем дату по вашему желанию -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

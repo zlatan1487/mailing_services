@@ -1,0 +1,37 @@
+{% extends 'newsletter/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <p class="card-text"><strong>Тема рассылки:</strong> {{ mailing.message.topic }}</p>
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>Текст рассылки:</strong> {{ mailing.message.message }}</p>
+                <p><strong>Количество клиентов:</strong> {{ mailing.clients.count }}</p>
+                <strong>Клиенты:</strong>
+                <ul>
+                    {% for customer in mailing.clients.all %}
+                    <li>{{ customer.email }} - {{ customer.first_name|capfirst }} {{ customer.last_name|capfirst }} {% if customer.middle_name|capfirst %}{{ customer.middle_name|capfirst }}{% endif %}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-muted">Автор: {{ mailing.creator }}</div>
+                        <div>
+                            <small class="text-muted">{{ mailing.mailing_datetime }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
